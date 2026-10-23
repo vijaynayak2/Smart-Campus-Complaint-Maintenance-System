@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign In & Register | AJIET CampusFix</title>
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="bg-light d-flex flex-column min-vh-100">
+
+  <!-- Simple Header -->
+  <header class="bg-white border-bottom py-3">
+    <div class="container d-flex justify-content-between align-items-center">
+      <a class="d-flex align-items-center gap-2 text-decoration-none" href="/">
+        <div class="brand-logo-badge">
+          <i class="bi bi-tools"></i>
+        </div>
+        <div class="brand-text">
+          <span class="brand-title">CampusFix</span>
+          <span class="brand-sub d-block">AJIET Mangaluru</span>
+        </div>
+      </a>
+      <a href="/" class="btn btn-outline-secondary btn-sm"><i class="bi bi-house me-1"></i>Home</a>
+    </div>
+  </header>
+
+  <!-- Login & Register Container -->
+  <main class="container my-auto py-5">
+    <div class="row justify-content-center">
+      <div class="col-md-9 col-lg-7 col-xl-6">
+
+        <!-- Quick-Fill Demo Pills Card -->
+        <div class="card border-0 shadow-sm rounded-4 mb-4 bg-white p-3">
+          <div class="d-flex align-items-center justify-content-between mb-2">
+            <span class="small fw-bold text-uppercase text-muted" style="letter-spacing: 0.5px;">
+              <i class="bi bi-lightning-fill text-warning me-1"></i>One-Click Demo Accounts
+            </span>
+            <span class="badge bg-light text-dark border">Instant Testing</span>
+          </div>
+          <div class="d-flex flex-wrap gap-2">
+            <button type="button" class="quick-fill-btn btn-sm" onclick="quickFill('admin@ajiet.ac.in', 'Admin@123', 'admin')">
+              <i class="bi bi-shield-lock-fill text-danger me-1"></i>Admin (Chief Officer)
+            </button>
+            <button type="button" class="quick-fill-btn btn-sm" onclick="quickFill('staff.electrical@ajiet.ac.in', 'Staff@123', 'staff')">
+              <i class="bi bi-lightning-charge-fill text-warning me-1"></i>Staff (Electrician)
+            </button>
+            <button type="button" class="quick-fill-btn btn-sm" onclick="quickFill('staff.plumbing@ajiet.ac.in', 'Staff@123', 'staff')">
+              <i class="bi bi-droplet-fill text-info me-1"></i>Staff (Plumber)
+            </button>
+            <button type="button" class="quick-fill-btn btn-sm" onclick="quickFill('student.rahul@ajiet.ac.in', 'Student@123', 'student')">
+              <i class="bi bi-person-fill text-primary me-1"></i>Student (Rahul)
+            </button>
+          </div>
+        </div>
+
+        <!-- Main Form Card -->
+        <div class="card border-0 shadow-lg rounded-4 overflow-hidden bg-white">
+          <!-- Tab Navigation -->
+          <div class="d-flex border-bottom bg-light">
+            <button id="tabLogin" class="btn btn-light rounded-0 w-50 py-3 fw-bold border-bottom border-primary border-3 text-primary" type="button" onclick="switchTab('login')">
+              <i class="bi bi-box-arrow-in-right me-1"></i>Sign In
+            </button>
+            <button id="tabRegister" class="btn btn-light rounded-0 w-50 py-3 fw-bold text-muted border-0" type="button" onclick="switchTab('register')">
+              <i class="bi bi-person-plus me-1"></i>Create Account
+            </button>
+          </div>
+
+          <div class="card-body p-4 p-md-5">
+
+            <!-- Alert Messages -->
+            <div id="authAlert" class="alert d-none" role="alert"></div>
+
+            <!-- ================= LOGIN FORM ================= -->
+            <form id="formLogin" novalidate>
+              <div class="mb-3">
+                <label for="loginEmail" class="form-label small fw-bold">AJIET Email Address</label>
+                <div class="input-group">
+                  <span class="input-group-text bg-light"><i class="bi bi-envelope text-muted"></i></span>
+                  <input type="email" class="form-control" id="loginEmail" placeholder="e.g. admin@ajiet.ac.in or usn@ajiet.ac.in" required>
+                </div>
+                <div class="invalid-feedback">Please enter a valid email address.</div>
+              </div>
+
+              <div class="mb-3">
+                <div class="d-flex justify-content-between align-items-center mb-1">
+                  <label for="loginPassword" class="form-label small fw-bold mb-0">Password</label>
+                  <a href="#" class="small text-muted text-decoration-none" onclick="showToast('For testing, please use the Demo Account buttons above.', 'info')">Forgot?</a>
+                </div>
+                <div class="input-group">
+                  <span class="input-group-text bg-light"><i class="bi bi-key text-muted"></i></span>
+                  <input type="password" class="form-control" id="loginPassword" placeholder="••••••••" required>
+                  <button class="btn btn-outline-secondary" type="button" onclick="togglePasswordVisibility('loginPassword', this)">
+                    <i class="bi bi-eye"></i>
+                  </button>
+                </div>
+                <div class="invalid-feedback">Please enter your password.</div>
+              </div>
+
+              <div class="mb-4 form-check">
+                <input type="checkbox" class="form-check-input" id="rememberMe" checked>
+                <label class="form-check-label small text-muted" for="rememberMe">Remember my login session on this browser</label>
+              </div>
+
+              <button type="submit" id="btnLoginSubmit" class="btn btn-primary-custom w-100 py-2 fs-6">
+                <span class="btn-text"><i class="bi bi-box-arrow-in-right me-1"></i>Sign In to CampusFix</span>
+                <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+              </button>
+            </form>
+
+            <!-- ================= REGISTER FORM ================= -->
+            <form id="formRegister" class="d-none" novalidate>
+              <div class="mb-3">
+                <label for="regName" class="form-label small fw-bold">Full Name</label>
+                <div class="input-group">
+                  <span class="input-group-text bg-light"><i class="bi bi-person text-muted"></i></span>
+                  <input type="text" class="form-control" id="regName" placeholder="e.g. Varun Kumar" required minlength="3">
+                </div>
+                <div class="invalid-feedback">Full name is required (min 3 characters).</div>
+              </div>
+
+              <div class="mb-3">
+                <label for="regEmail" class="form-label small fw-bold">College / Personal Email</label>
+                <div class="input-group">
+                  <span class="input-group-text bg-light"><i class="bi bi-envelope text-muted"></i></span>
+                  <input type="email" class="form-control" id="regEmail" placeholder="e.g. varun@ajiet.ac.in" required>
+                </div>
+                <div class="invalid-feedback">Please enter a valid email address.</div>
+              </div>
+
+              <div class="row g-2 mb-3">
+                <div class="col-md-6">
+                  <label for="regDept" class="form-label small fw-bold">Department</label>
+                  <select class="form-select" id="regDept" required>
+                    <option value="" selected disabled>Select Department</option>
+                    <option value="Computer Science & Engineering">Computer Science (CSE)</option>
+                    <option value="Information Science & Engineering">Information Science (ISE)</option>
+                    <option value="Artificial Intelligence & Data Science">AI & Data Science (AI&DS)</option>
+                    <option value="Mechanical Engineering">Mechanical Engineering</option>
+                    <option value="Civil Engineering">Civil Engineering</option>
+                    <option value="Electronics & Communication">Electronics & Comm. (ECE)</option>
+                    <option value="Campus Maintenance & Housekeeping">Campus Maintenance</option>
+                    <option value="Administration / Estate Office">Administration / Estate</option>
+                  </select>
+                  <div class="invalid-feedback">Please select your department.</div>
+                </div>
+
+                <div class="col-md-6">
+                  <label for="regUserType" class="form-label small fw-bold">Designation</label>
+                  <select class="form-select" id="regUserType" required>
+                    <option value="Student" selected>Student</option>
+                    <option value="Faculty">Faculty Member</option>
+                    <option value="Staff">Department Staff</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label for="regPhone" class="form-label small fw-bold">Phone Number (Optional)</label>
+                <div class="input-group">
+                  <span class="input-group-text bg-light"><i class="bi bi-telephone text-muted"></i></span>
+                  <input type="tel" class="form-control" id="regPhone" placeholder="e.g. +91 98765 43210">
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label for="regPassword" class="form-label small fw-bold">Create Password</label>
+                <div class="input-group">
+                  <span class="input-group-text bg-light"><i class="bi bi-shield-lock text-muted"></i></span>
+                  <input type="password" class="form-control" id="regPassword" placeholder="Minimum 6 characters" required minlength="6">
+                  <button class="btn btn-outline-secondary" type="button" onclick="togglePasswordVisibility('regPassword', this)">
+                    <i class="bi bi-eye"></i>
+                  </button>
+                </div>
+                <div class="form-text small" id="pwStrengthText">Use at least 6 characters.</div>
+                <div class="invalid-feedback">Password must be at least 6 characters.</div>
+              </div>
+
+              <div class="mb-4">
+                <label for="regConfirmPassword" class="form-label small fw-bold">Confirm Password</label>
+                <div class="input-group">
+                  <span class="input-group-text bg-light"><i class="bi bi-shield-check text-muted"></i></span>
+                  <input type="password" class="form-control" id="regConfirmPassword" placeholder="Repeat your password" required>
+                </div>
+                <div class="invalid-feedback" id="pwMatchFeedback">Passwords do not match.</div>
+              </div>
+
+              <button type="submit" id="btnRegisterSubmit" class="btn btn-primary-custom w-100 py-2 fs-6">
+                <span class="btn-text"><i class="bi bi-check2-circle me-1"></i>Register My Account</span>
+                <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+              </button>
+            </form>
+
+          </div>
+        </div>
+
+        <!-- Back to Home Link -->
+        <div class="text-center mt-4">
+          <a href="/" class="text-muted small text-decoration-none">
+            <i class="bi bi-arrow-left me-1"></i>Return to AJIET CampusFix Home
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/js/toast.js"></script>
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+  <script>
+    // Tab switching
+    function switchTab(tab) {
+      const tabLogin = document.getElementById('tabLogin');
+      const tabRegister = document.getElementById('tabRegister');
+      const formLogin = document.getElementById('formLogin');
+      const formRegister = document.getElementById('formRegister');
+      const alertBox = document.getElementById('authAlert');
+      alertBox.className = 'alert d-none';
+
+      if (tab === 'register') {
+        tabRegister.className = 'btn btn-light rounded-0 w-50 py-3 fw-bold border-bottom border-primary border-3 text-primary';
+        tabLogin.className = 'btn btn-light rounded-0 w-50 py-3 fw-bold text-muted border-0';
+        formLogin.classList.add('d-none');
+        formRegister.classList.remove('d-none');
+        window.location.hash = 'register';
+      } else {
+        tabLogin.className = 'btn btn-light rounded-0 w-50 py-3 fw-bold border-bottom border-primary border-3 text-primary';
+        tabRegister.className = 'btn btn-light rounded-0 w-50 py-3 fw-bold text-muted border-0';
+        formRegister.classList.add('d-none');
+        formLogin.classList.remove('d-none');
+        window.location.hash = '';
+      }
+    }
+
+    // Toggle password eye
+    function togglePasswordVisibility(inputId, btn) {
+      const input = document.getElementById(inputId);
+      const icon = btn.querySelector('i');
+      if (input.type === 'password') {
+        input.type = 'text';
+        icon.className = 'bi bi-eye-slash';
+      } else {
+        input.type = 'password';
+        icon.className = 'bi bi-eye';
+      }
+    }
+
+    // Quick Fill demo helper
+    function quickFill(email, password, role) {
+      switchTab('login');
+      document.getElementById('loginEmail').value = email;
+      document.getElementById('loginPassword').value = password;
+      showToast(`Filled credentials for ${role.toUpperCase()}: ${email}`, 'info');
+    }
+
+    // Initialize on page load
+    document.addEventListener('DOMContentLoaded', () => {
+      // Check hash
+      if (window.location.hash === '#register') {
+        switchTab('register');
+      }
+
+      // Check query params
+      const params = new URLSearchParams(window.location.search);
+      if (params.get('msg') === 'logged_out') {
+        showToast('You have been signed out successfully.', 'info');
+      } else if (params.get('session') === 'expired') {
+        showToast('Your session has expired. Please sign in again.', 'warning');
+      }
+
+      // Form validation & submit: Login
+      const formLogin = document.getElementById('formLogin');
+      const btnLoginSubmit = document.getElementById('btnLoginSubmit');
+      const alertBox = document.getElementById('authAlert');
+
+      formLogin.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        alertBox.className = 'alert d-none';
+
+        const email = document.getElementById('loginEmail').value.trim();
+        const password = document.getElementById('loginPassword').value;
+
+        let valid = true;
+        if (!email || !email.includes('@')) {
+          document.getElementById('loginEmail').classList.add('is-invalid');
+          valid = false;
+        } else {
+          document.getElementById('loginEmail').classList.remove('is-invalid');
+        }
+
+        if (!password) {
+          document.getElementById('loginPassword').classList.add('is-invalid');
+          valid = false;
+        } else {
+          document.getElementById('loginPassword').classList.remove('is-invalid');
+        }
+
+        if (!valid) return;
+
+        // UI Loading
+        btnLoginSubmit.disabled = true;
+        btnLoginSubmit.querySelector('.btn-text').classList.add('d-none');
+        btnLoginSubmit.querySelector('.spinner-border').classList.remove('d-none');
+
+        try {
+          const res = await API.post('/api/auth/login', { email, password });
+          Auth.setToken(res.token);
+          Auth.setUser(res.user);
+
+          showToast(`Welcome back, ${res.user.name}!`, 'success');
+
+          // Check redirect param
+          const redirect = params.get('redirect');
+          setTimeout(() => {
+            if (redirect && redirect.startsWith('/')) {
+              window.location.href = redirect;
+            } else {
+              Auth.redirectToDashboard(res.user.role);
+            }
+          }, 600);
+        } catch (err) {
+          alertBox.className = 'alert alert-danger';
+          alertBox.textContent = err.message || 'Login failed. Please check credentials.';
+          showToast(err.message || 'Login failed', 'error');
+        } finally {
+          btnLoginSubmit.disabled = false;
+          btnLoginSubmit.querySelector('.btn-text').classList.remove('d-none');
+          btnLoginSubmit.querySelector('.spinner-border').classList.add('d-none');
+        }
+      });
+
+      // Form validation & submit: Register
+      const formRegister = document.getElementById('formRegister');
+      const btnRegSubmit = document.getElementById('btnRegisterSubmit');
+
+      formRegister.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        alertBox.className = 'alert d-none';
+
+        const name = document.getElementById('regName').value.trim();
+        const email = document.getElementById('regEmail').value.trim();
+        const department = document.getElementById('regDept').value;
+        const user_type = document.getElementById('regUserType').value;
+        const phone = document.getElementById('regPhone').value.trim();
+        const password = document.getElementById('regPassword').value;
+        const confirmPassword = document.getElementById('regConfirmPassword').value;
+
+        let valid = true;
+
+        if (name.length < 3) {
+          document.getElementById('regName').classList.add('is-invalid');
+          valid = false;
+        } else {
+          document.getElementById('regName').classList.remove('is-invalid');
+        }
+
+        if (!email || !email.includes('@')) {
+          document.getElementById('regEmail').classList.add('is-invalid');
+          valid = false;
+        } else {
+          document.getElementById('regEmail').classList.remove('is-invalid');
+        }
+
+        if (!department) {
+          document.getElementById('regDept').classList.add('is-invalid');
+          valid = false;
+        } else {
+          document.getElementById('regDept').classList.remove('is-invalid');
+        }
+
+        if (password.length < 6) {
+          document.getElementById('regPassword').classList.add('is-invalid');
+          valid = false;
+        } else {
+          document.getElementById('regPassword').classList.remove('is-invalid');
+        }
+
+        if (password !== confirmPassword) {
+          document.getElementById('regConfirmPassword').classList.add('is-invalid');
+          valid = false;
+        } else {
+          document.getElementById('regConfirmPassword').classList.remove('is-invalid');
+        }
+
+        if (!valid) return;
+
+        // UI Loading
+        btnRegSubmit.disabled = true;
+        btnRegSubmit.querySelector('.btn-text').classList.add('d-none');
+        btnRegSubmit.querySelector('.spinner-border').classList.remove('d-none');
+
+        try {
+          const res = await API.post('/api/auth/register', {
+            name,
+            email,
+            password,
+            department,
+            phone,
+            user_type
+          });
+
+          Auth.setToken(res.token);
+          Auth.setUser(res.user);
+
+          showToast('Account registered successfully! Redirecting...', 'success');
+
+          setTimeout(() => {
+            Auth.redirectToDashboard(res.user.role);
+          }, 800);
+        } catch (err) {
+          alertBox.className = 'alert alert-danger';
+          alertBox.textContent = err.message || 'Registration failed. Please try again.';
+          showToast(err.message || 'Registration failed', 'error');
+        } finally {
+          btnRegSubmit.disabled = false;
+          btnRegSubmit.querySelector('.btn-text').classList.remove('d-none');
+          btnRegSubmit.querySelector('.spinner-border').classList.add('d-none');
+        }
+      });
+    });
+  </script>
+</body>
+</html>

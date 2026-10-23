@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Track Campus Complaint | AJIET CampusFix</title>
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="bg-light d-flex flex-column min-vh-100">
+
+  <!-- Navbar -->
+  <header class="bg-white border-bottom py-3">
+    <div class="container d-flex justify-content-between align-items-center">
+      <a class="d-flex align-items-center gap-2 text-decoration-none" href="/">
+        <div class="brand-logo-badge">
+          <i class="bi bi-tools"></i>
+        </div>
+        <div class="brand-text">
+          <span class="brand-title">CampusFix</span>
+          <span class="brand-sub d-block">AJIET Tracking Portal</span>
+        </div>
+      </a>
+      <div class="d-flex gap-2">
+        <a href="/" class="btn btn-outline-secondary btn-sm"><i class="bi bi-house me-1"></i>Home</a>
+        <a href="/login" class="btn btn-primary-custom btn-sm">Sign In</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Tracking Container -->
+  <main class="container my-5">
+    <div class="row justify-content-center">
+      <div class="col-lg-9 col-xl-8">
+
+        <!-- Search Card -->
+        <div class="card border-0 shadow-sm rounded-4 p-4 bg-white mb-4">
+          <div class="text-center mb-3">
+            <span class="badge bg-primary-subtle text-primary fw-bold px-3 py-1 mb-2">Live Status Tracking</span>
+            <h4 class="fw-bold">Look Up Campus Maintenance Request</h4>
+            <p class="text-muted small">Enter the unique complaint tracking code provided when the request was submitted.</p>
+          </div>
+
+          <form id="formTrackCode" class="row g-2 justify-content-center">
+            <div class="col-md-8">
+              <div class="input-group">
+                <span class="input-group-text bg-white"><i class="bi bi-search text-muted"></i></span>
+                <input type="text" id="trackCodeInput" class="form-control" placeholder="e.g. AJIET-2026-001" required>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <button type="submit" id="btnTrackSubmit" class="btn btn-primary-custom w-100">
+                <span class="btn-text"><i class="bi bi-geo-alt me-1"></i>Track Status</span>
+                <span class="spinner-border spinner-border-sm d-none" role="status"></span>
+              </button>
+            </div>
+          </form>
+
+          <!-- Sample Codes Quick Clicks -->
+          <div class="text-center mt-3 small">
+            <span class="text-muted me-2">Try sample codes:</span>
+            <a href="javascript:void(0)" class="badge bg-light text-primary border text-decoration-none me-1" onclick="quickTrack('AJIET-2026-001')">AJIET-2026-001 (Verified)</a>
+            <a href="javascript:void(0)" class="badge bg-light text-primary border text-decoration-none me-1" onclick="quickTrack('AJIET-2026-002')">AJIET-2026-002 (Resolved)</a>
+            <a href="javascript:void(0)" class="badge bg-light text-primary border text-decoration-none" onclick="quickTrack('AJIET-2026-003')">AJIET-2026-003 (In Progress)</a>
+          </div>
+        </div>
+
+        <!-- Tracking Results Card -->
+        <div id="trackingResultContainer" class="d-none">
+          <div class="card border-0 shadow-lg rounded-4 overflow-hidden bg-white p-4 p-md-5">
+
+            <!-- Header Info -->
+            <div class="d-flex flex-wrap justify-content-between align-items-start border-bottom pb-4 mb-4 gap-2">
+              <div>
+                <span class="badge bg-primary text-white fw-bold px-3 py-1 mb-2 fs-6" id="resCode">AJIET-2026-001</span>
+                <h3 class="fw-bold text-dark mb-1" id="resTitle">Complaint Title</h3>
+                <div class="text-muted small">
+                  <i class="bi bi-geo-alt-fill text-danger me-1"></i><span id="resLocation">Academic Block A</span>
+                  <span class="mx-2">•</span>
+                  <i class="bi bi-calendar3 me-1"></i><span id="resDate">Sept 27, 2026</span>
+                </div>
+              </div>
+              <div class="text-md-end">
+                <div id="resStatusBadge" class="mb-1"></div>
+                <div id="resPriorityBadge"></div>
+              </div>
+            </div>
+
+            <!-- Visual Stepper Progress Bar -->
+            <div class="mb-4">
+              <h6 class="fw-bold small text-uppercase text-muted mb-3"><i class="bi bi-diagram-3-fill me-1"></i>Complaint Lifecycle Progress</h6>
+              <div id="stepperContainer">
+                <!-- Dynamically generated stepper -->
+              </div>
+            </div>
+
+            <!-- Details Box -->
+            <div class="bg-light rounded-4 p-4 mb-4">
+              <h6 class="fw-bold small text-uppercase text-muted mb-2">Description</h6>
+              <p class="text-dark mb-3" id="resDescription"></p>
+
+              <div class="row g-3 small text-muted border-top pt-3">
+                <div class="col-sm-6">
+                  <i class="bi bi-person me-1"></i><strong>Reported by:</strong> <span id="resSubmitter">User</span>
+                </div>
+                <div class="col-sm-6">
+                  <i class="bi bi-tools me-1"></i><strong>Assigned Technician:</strong> <span id="resStaff">Technician</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Photos Section (Before & After) -->
+            <div id="photosSection" class="row g-3 mb-4 d-none">
+              <div class="col-sm-6" id="reportedPhotoCol">
+                <div class="border rounded-3 p-3 bg-light text-center">
+                  <span class="small fw-bold d-block mb-2 text-muted"><i class="bi bi-image me-1"></i>Issue Photo (Reported)</span>
+                  <a id="reportedPhotoLink" href="#" target="_blank">
+                    <img id="reportedPhotoImg" src="" class="img-fluid rounded shadow-sm" style="max-height: 180px; object-fit: cover;" alt="Reported problem">
+                  </a>
+                </div>
+              </div>
+              <div class="col-sm-6" id="proofPhotoCol">
+                <div class="border rounded-3 p-3 bg-success-subtle text-center">
+                  <span class="small fw-bold d-block mb-2 text-success"><i class="bi bi-patch-check-fill me-1"></i>Resolution Proof (Technician)</span>
+                  <a id="proofPhotoLink" href="#" target="_blank">
+                    <img id="proofPhotoImg" src="" class="img-fluid rounded shadow-sm" style="max-height: 180px; object-fit: cover;" alt="Proof photo">
+                  </a>
+                  <div class="small text-start text-dark mt-2" id="proofRemarksText"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Timeline Audit Log -->
+            <h6 class="fw-bold small text-uppercase text-muted mb-3"><i class="bi bi-clock-history me-1"></i>Status History & Remarks</h6>
+            <div class="timeline-list" id="trackingTimelineList">
+              <!-- Dynamically rendered -->
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Not Found Alert -->
+        <div id="trackingNotFound" class="alert alert-warning border-0 shadow-sm rounded-4 p-4 text-center d-none">
+          <i class="bi bi-search fs-2 mb-2 d-block"></i>
+          <h5 class="fw-bold">Complaint Not Found</h5>
+          <p class="small mb-0" id="notFoundMsg">No complaint found matching the requested code. Please verify the code and try again.</p>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="mt-auto bg-white border-top py-3 text-center small text-muted">
+    <div class="container">
+      AJIET CampusFix • Smart Campus Complaint & Maintenance Tracking • Mangaluru
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/js/toast.js"></script>
+  <script src="/js/api.js"></script>
+  <script>
+    const formTrack = document.getElementById('formTrackCode');
+    const inputCode = document.getElementById('trackCodeInput');
+    const btnSubmit = document.getElementById('btnTrackSubmit');
+
+    const resultContainer = document.getElementById('trackingResultContainer');
+    const notFoundBox = document.getElementById('trackingNotFound');
+    const notFoundMsg = document.getElementById('notFoundMsg');
+
+    function quickTrack(code) {
+      inputCode.value = code;
+      executeTrack(code);
+    }
+
+    async function executeTrack(code) {
+      if (!code) return;
+
+      btnSubmit.disabled = true;
+      btnSubmit.querySelector('.btn-text').classList.add('d-none');
+      btnSubmit.querySelector('.spinner-border').classList.remove('d-none');
+      resultContainer.classList.add('d-none');
+      notFoundBox.classList.add('d-none');
+
+      try {
+        const res = await API.get(`/api/complaints/track/${encodeURIComponent(code)}`);
+        renderTrackingResult(res.complaint, res.timeline);
+      } catch (err) {
+        notFoundBox.classList.remove('d-none');
+        notFoundMsg.textContent = err.message || `No complaint found matching code "${code}".`;
+      } finally {
+        btnSubmit.disabled = false;
+        btnSubmit.querySelector('.btn-text').classList.remove('d-none');
+        btnSubmit.querySelector('.spinner-border').classList.add('d-none');
+      }
+    }
+
+    function renderTrackingResult(c, timeline) {
+      document.getElementById('resCode').textContent = c.complaint_code;
+      document.getElementById('resTitle').textContent = c.title;
+      document.getElementById('resLocation').textContent = c.location;
+      document.getElementById('resDescription').textContent = c.description;
+      document.getElementById('resDate').textContent = new Date(c.created_at).toLocaleDateString('en-US', {
+        month: 'short', day: 'numeric', year: 'numeric'
+      });
+
+      document.getElementById('resSubmitter').textContent = `${c.submitter_name} (${c.submitter_dept || 'AJIET'})`;
+      document.getElementById('resStaff').textContent = c.assigned_staff_name
+        ? `${c.assigned_staff_name}`
+        : 'Pending Assignment by Admin';
+
+      // Status Badge
+      const statusClean = (c.status || '').toLowerCase().replace(' ', '-');
+      document.getElementById('resStatusBadge').innerHTML = `
+        <span class="badge-status badge-status-${statusClean} fs-6">${c.status}</span>
+      `;
+
+      // Priority Badge
+      const prioClean = (c.priority || 'medium').toLowerCase();
+      document.getElementById('resPriorityBadge').innerHTML = `
+        <span class="badge-priority badge-priority-${prioClean}">Priority: ${c.priority}</span>
+      `;
+
+      // Stepper
+      const steps = ['Submitted', 'Assigned', 'In Progress', 'Resolved', 'Verified'];
+      const currentIndex = steps.indexOf(c.status);
+      const progressPercent = Math.max(0, (currentIndex / (steps.length - 1)) * 100);
+
+      document.getElementById('stepperContainer').innerHTML = `
+        <div class="lifecycle-stepper">
+          <div class="stepper-progress-bar" style="width: ${progressPercent}%;"></div>
+          ${steps.map((st, idx) => {
+            const isCompleted = idx < currentIndex;
+            const isActive = idx === currentIndex;
+            const stateClass = isCompleted ? 'completed' : isActive ? 'active' : '';
+            const iconHtml = isCompleted ? '<i class="bi bi-check-lg"></i>' : (idx + 1);
+            return `
+              <div class="stepper-step ${stateClass}">
+                <div class="stepper-circle">${iconHtml}</div>
+                <span class="stepper-label">${st}</span>
+              </div>
+            `;
+          }).join('')}
+        </div>
+      `;
+
+      // Photos
+      const photosSection = document.getElementById('photosSection');
+      const repCol = document.getElementById('reportedPhotoCol');
+      const proofCol = document.getElementById('proofPhotoCol');
+
+      let hasPhotos = false;
+      if (c.image_url) {
+        repCol.classList.remove('d-none');
+        document.getElementById('reportedPhotoImg').src = c.image_url;
+        document.getElementById('reportedPhotoLink').href = c.image_url;
+        hasPhotos = true;
+      } else {
+        repCol.classList.add('d-none');
+      }
+
+      if (c.proof_image) {
+        proofCol.classList.remove('d-none');
+        document.getElementById('proofPhotoImg').src = c.proof_image;
+        document.getElementById('proofPhotoLink').href = c.proof_image;
+        document.getElementById('proofRemarksText').innerHTML = c.resolution_remarks ? `<strong>Technician Notes:</strong> <em>"${c.resolution_remarks}"</em>` : '';
+        hasPhotos = true;
+      } else {
+        proofCol.classList.add('d-none');
+      }
+
+      if (hasPhotos) {
+        photosSection.classList.remove('d-none');
+      } else {
+        photosSection.classList.add('d-none');
+      }
+
+      // Timeline events
+      const timelineList = document.getElementById('trackingTimelineList');
+      if (timeline && timeline.length > 0) {
+        timelineList.innerHTML = timeline.map(item => {
+          const itemDate = new Date(item.created_at).toLocaleString('en-US', {
+            month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit'
+          });
+          return `
+            <div class="timeline-item">
+              <div class="timeline-bullet"><i class="bi bi-dot"></i></div>
+              <div class="timeline-content">
+                <div class="timeline-header">
+                  <span class="fw-bold small text-dark">${item.status}</span>
+                  <span class="text-muted" style="font-size: 0.72rem;">${itemDate}</span>
+                </div>
+                <div class="small text-secondary mb-1">${item.remarks || 'Status logged.'}</div>
+                <div class="small text-muted" style="font-size: 0.72rem;">Updated by ${item.user_name} (${item.user_role})</div>
+              </div>
+            </div>
+          `;
+        }).join('');
+      } else {
+        timelineList.innerHTML = '<p class="small text-muted">No timeline log found.</p>';
+      }
+
+      resultContainer.classList.remove('d-none');
+      resultContainer.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    formTrack.addEventListener('submit', (e) => {
+      e.preventDefault();
+      executeTrack(inputCode.value.trim());
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const code = urlParams.get('code');
+      if (code) {
+        inputCode.value = code;
+        executeTrack(code);
+      }
+    });
+  </script>
+</body>
+</html>

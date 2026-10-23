@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AJIET CampusFix | Smart Campus Complaint & Maintenance System</title>
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="bg-light">
+
+  <!-- Top Announcement Bar -->
+  <div class="bg-primary text-white py-1 px-3 text-center small fw-semibold" style="letter-spacing: 0.3px;">
+    <span><i class="bi bi-shield-check me-1"></i> A.J. Institute of Engineering & Technology, Mangaluru - Central Estate & Facility Management Portal</span>
+  </div>
+
+  <!-- Main Navbar -->
+  <nav class="navbar navbar-expand-lg campus-navbar sticky-top">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center gap-2" href="/">
+        <div class="brand-logo-badge">
+          <i class="bi bi-tools"></i>
+        </div>
+        <div class="brand-text">
+          <span class="brand-title">CampusFix</span>
+          <span class="brand-sub d-block">AJIET Smart Maintenance</span>
+        </div>
+      </a>
+      <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navMenu">
+        <ul class="navbar-nav ms-auto align-items-lg-center gap-2 mt-3 mt-lg-0">
+          <li class="nav-item">
+            <a class="nav-link fw-semibold" href="#features">Features</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link fw-semibold" href="#workflow">How It Works</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link fw-semibold" href="/track"><i class="bi bi-geo-alt me-1"></i>Track Issue</a>
+          </li>
+          <li class="nav-item ms-lg-2" id="navAuthSection">
+            <a class="btn btn-outline-primary px-3 py-1 fw-semibold me-2" href="/login">Sign In</a>
+            <a class="btn btn-primary-custom px-3 py-1 fw-semibold" href="/login#register">Register</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="py-5" style="background: radial-gradient(circle at top right, #e0f2fe 0%, #f8fafc 60%);">
+    <div class="container py-4">
+      <div class="row align-items-center g-5">
+        <div class="col-lg-7">
+          <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill bg-white border shadow-sm mb-3">
+            <span class="badge bg-success rounded-pill px-2 py-1"><i class="bi bi-dot"></i> Live Portal</span>
+            <span class="small fw-semibold text-secondary">Faster resolutions across all AJIET departments</span>
+          </div>
+          <h1 class="display-5 fw-extrabold text-dark lh-sm mb-3" style="font-weight: 800;">
+            Smart Campus Complaint & Maintenance Resolution System
+          </h1>
+          <p class="lead text-muted mb-4 fs-6">
+            AJIET CampusFix connects students, faculty, and administrative departments with specialized electrical, plumbing, network, and infrastructure technicians. Report campus issues in seconds, track real-time visual progress, and ensure accountability.
+          </p>
+          <div class="d-flex flex-wrap gap-3 mb-4">
+            <a href="/login" class="btn btn-primary-custom btn-lg px-4 py-2 fs-6 shadow">
+              <i class="bi bi-plus-circle me-2"></i>Report a Problem
+            </a>
+            <a href="/track" class="btn btn-outline-secondary btn-lg px-4 py-2 fs-6 bg-white shadow-sm">
+              <i class="bi bi-search me-2"></i>Track by Code
+            </a>
+          </div>
+
+          <!-- Quick Code Tracker Input -->
+          <div class="card p-2 border shadow-sm rounded-3 bg-white" style="max-width: 520px;">
+            <div class="input-group">
+              <span class="input-group-text bg-white border-0 text-muted"><i class="bi bi-qr-code-scan"></i></span>
+              <input type="text" id="heroTrackInput" class="form-control border-0 shadow-none" placeholder="Enter Complaint Code (e.g. AJIET-2026-001)">
+              <button class="btn btn-primary-custom px-4" type="button" id="heroTrackBtn">Track</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-5">
+          <!-- Interactive Lifecycle Preview Card -->
+          <div class="card border-0 shadow-lg rounded-4 overflow-hidden bg-white p-4">
+            <div class="d-flex justify-content-between align-items-center border-bottom pb-3 mb-3">
+              <div>
+                <span class="badge bg-primary-subtle text-primary fw-bold px-2 py-1 mb-1">AJIET-2026-001</span>
+                <h6 class="fw-bold mb-0">Ceiling Fan Motor Repair</h6>
+                <small class="text-muted"><i class="bi bi-geo-alt"></i> Academic Block A - Room 204</small>
+              </div>
+              <span class="badge-status badge-status-verified"><i class="bi bi-check-all"></i> Verified</span>
+            </div>
+
+            <!-- Stepper Preview -->
+            <div class="lifecycle-stepper mb-3 px-0">
+              <div class="stepper-progress-bar" style="width: 100%;"></div>
+              <div class="stepper-step completed">
+                <div class="stepper-circle"><i class="bi bi-check-lg"></i></div>
+                <span class="stepper-label">Submitted</span>
+              </div>
+              <div class="stepper-step completed">
+                <div class="stepper-circle"><i class="bi bi-check-lg"></i></div>
+                <span class="stepper-label">Assigned</span>
+              </div>
+              <div class="stepper-step completed">
+                <div class="stepper-circle"><i class="bi bi-check-lg"></i></div>
+                <span class="stepper-label">Progress</span>
+              </div>
+              <div class="stepper-step completed">
+                <div class="stepper-circle"><i class="bi bi-check-lg"></i></div>
+                <span class="stepper-label">Resolved</span>
+              </div>
+              <div class="stepper-step completed">
+                <div class="stepper-circle"><i class="bi bi-award-fill"></i></div>
+                <span class="stepper-label">Verified</span>
+              </div>
+            </div>
+
+            <div class="bg-light rounded-3 p-3 small mb-3">
+              <div class="d-flex align-items-center gap-2 mb-2">
+                <i class="bi bi-person-badge text-primary"></i>
+                <span class="fw-semibold">Assigned Staff:</span>
+                <span class="text-muted">Suresh Poojary (Electrical Lead)</span>
+              </div>
+              <div class="d-flex align-items-center gap-2">
+                <i class="bi bi-check2-circle text-success"></i>
+                <span class="fw-semibold">Resolution Proof:</span>
+                <span class="badge bg-success-subtle text-success">Photo Uploaded & Inspected</span>
+              </div>
+            </div>
+
+            <div class="d-grid">
+              <a href="/login" class="btn btn-outline-primary btn-sm fw-semibold">Sign In to View Full Portal</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Live Campus Stats Counters -->
+  <section class="py-4 bg-white border-top border-bottom">
+    <div class="container">
+      <div class="row g-4 text-center">
+        <div class="col-6 col-md-3">
+          <div class="stat-card border-0 py-2">
+            <div class="stat-value text-primary" id="homeTotalCount">8</div>
+            <div class="stat-label">Total Reported</div>
+          </div>
+        </div>
+        <div class="col-6 col-md-3">
+          <div class="stat-card border-0 py-2">
+            <div class="stat-value text-warning" id="homePendingCount">4</div>
+            <div class="stat-label">Active In-Flight</div>
+          </div>
+        </div>
+        <div class="col-6 col-md-3">
+          <div class="stat-card border-0 py-2">
+            <div class="stat-value text-success" id="homeResolvedCount">4</div>
+            <div class="stat-label">Resolved & Verified</div>
+          </div>
+        </div>
+        <div class="col-6 col-md-3">
+          <div class="stat-card border-0 py-2">
+            <div class="stat-value text-info" id="homeRateCount">100%</div>
+            <div class="stat-label">Response Commitment</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works Section -->
+  <section class="py-5" id="workflow">
+    <div class="container py-3">
+      <div class="text-center mb-5">
+        <span class="badge bg-primary-subtle text-primary fw-bold text-uppercase px-3 py-1 mb-2">Transparent Workflow</span>
+        <h2 class="fw-bold">How CampusFix Solves Infrastructure Problems</h2>
+        <p class="text-muted">A strictly enforced lifecycle guaranteeing swift, accountable maintenance.</p>
+      </div>
+
+      <div class="row g-4">
+        <div class="col-md-3">
+          <div class="card h-100 p-4 border shadow-sm rounded-4 text-center">
+            <div class="stat-icon blue mx-auto mb-3">
+              <i class="bi bi-pencil-square"></i>
+            </div>
+            <h5 class="fw-bold">1. Report Issue</h5>
+            <p class="text-muted small mb-0">Students and staff submit complaints with category, precise campus location, urgency, and photo proof.</p>
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          <div class="card h-100 p-4 border shadow-sm rounded-4 text-center">
+            <div class="stat-icon purple mx-auto mb-3">
+              <i class="bi bi-person-gear"></i>
+            </div>
+            <h5 class="fw-bold">2. Admin Triage</h5>
+            <p class="text-muted small mb-0">Admin evaluates the request, adjusts priority level, and routes the complaint to specialized maintenance technicians.</p>
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          <div class="card h-100 p-4 border shadow-sm rounded-4 text-center">
+            <div class="stat-icon amber mx-auto mb-3">
+              <i class="bi bi-wrench-adjustable"></i>
+            </div>
+            <h5 class="fw-bold">3. Physical Repair</h5>
+            <p class="text-muted small mb-0">Assigned staff marks work 'In Progress', completes the physical repair, and uploads proof-of-completion photos.</p>
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          <div class="card h-100 p-4 border shadow-sm rounded-4 text-center">
+            <div class="stat-icon emerald mx-auto mb-3">
+              <i class="bi bi-patch-check-fill"></i>
+            </div>
+            <h5 class="fw-bold">4. Verification</h5>
+            <p class="text-muted small mb-0">Estate administrator audits repair quality on site and marks it 'Verified', locking the resolved case with full audit logs.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Problem Categories Grid -->
+  <section class="py-5 bg-white border-top" id="features">
+    <div class="container py-3">
+      <div class="text-center mb-5">
+        <span class="badge bg-secondary-subtle text-dark fw-bold text-uppercase px-3 py-1 mb-2">Campus Domains</span>
+        <h2 class="fw-bold">Report Issues Across All Facilities</h2>
+        <p class="text-muted">Dedicated technicians assigned to each domain for maximum efficiency.</p>
+      </div>
+
+      <div class="row g-3">
+        <div class="col-6 col-md-3">
+          <div class="p-3 border rounded-3 text-center bg-light">
+            <i class="bi bi-lightning-charge-fill text-warning fs-3 mb-2 d-block"></i>
+            <h6 class="fw-bold mb-1">Electrical</h6>
+            <small class="text-muted">Lights, fans, switchboards, UPS</small>
+          </div>
+        </div>
+        <div class="col-6 col-md-3">
+          <div class="p-3 border rounded-3 text-center bg-light">
+            <i class="bi bi-droplet-fill text-info fs-3 mb-2 d-block"></i>
+            <h6 class="fw-bold mb-1">Plumbing</h6>
+            <small class="text-muted">Taps, washbasins, pipe leakages</small>
+          </div>
+        </div>
+        <div class="col-6 col-md-3">
+          <div class="p-3 border rounded-3 text-center bg-light">
+            <i class="bi bi-wifi text-primary fs-3 mb-2 d-block"></i>
+            <h6 class="fw-bold mb-1">Wi-Fi & Network</h6>
+            <small class="text-muted">Cisco APs, LAN drops, switch ports</small>
+          </div>
+        </div>
+        <div class="col-6 col-md-3">
+          <div class="p-3 border rounded-3 text-center bg-light">
+            <i class="bi bi-easel-fill text-danger fs-3 mb-2 d-block"></i>
+            <h6 class="fw-bold mb-1">Classroom Tech</h6>
+            <small class="text-muted">Projectors, smart boards, audio</small>
+          </div>
+        </div>
+        <div class="col-6 col-md-3">
+          <div class="p-3 border rounded-3 text-center bg-light">
+            <i class="bi bi-grid-3x2-gap-fill text-success fs-3 mb-2 d-block"></i>
+            <h6 class="fw-bold mb-1">Damaged Furniture</h6>
+            <small class="text-muted">Desks, drawing tables, benches</small>
+          </div>
+        </div>
+        <div class="col-6 col-md-3">
+          <div class="p-3 border rounded-3 text-center bg-light">
+            <i class="bi bi-cloud-rain-heavy-fill text-primary fs-3 mb-2 d-block"></i>
+            <h6 class="fw-bold mb-1">Water Leakage</h6>
+            <small class="text-muted">Ceilings, seepage, gutters</small>
+          </div>
+        </div>
+        <div class="col-6 col-md-3">
+          <div class="p-3 border rounded-3 text-center bg-light">
+            <i class="bi bi-trash3-fill text-secondary fs-3 mb-2 d-block"></i>
+            <h6 class="fw-bold mb-1">Sanitation</h6>
+            <small class="text-muted">Disposal bins, washrooms, mess</small>
+          </div>
+        </div>
+        <div class="col-6 col-md-3">
+          <div class="p-3 border rounded-3 text-center bg-light">
+            <i class="bi bi-building-gear text-dark fs-3 mb-2 d-block"></i>
+            <h6 class="fw-bold mb-1">Infrastructure</h6>
+            <small class="text-muted">Doors, windows, civil structures</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Role Portals Callout -->
+  <section class="py-5 bg-light border-top">
+    <div class="container text-center py-3">
+      <h3 class="fw-bold mb-3">Instant Access by Role</h3>
+      <p class="text-muted mb-4">Jump directly to your customized workspace or test using seed accounts.</p>
+      <div class="d-flex flex-wrap justify-content-center gap-3">
+        <a href="/student" class="btn btn-outline-primary px-4 py-2 fw-semibold">
+          <i class="bi bi-mortarboard me-1"></i> Student Portal
+        </a>
+        <a href="/staff" class="btn btn-outline-warning text-dark px-4 py-2 fw-semibold">
+          <i class="bi bi-tools me-1"></i> Maintenance Staff Desk
+        </a>
+        <a href="/admin" class="btn btn-outline-danger px-4 py-2 fw-semibold">
+          <i class="bi bi-speedometer2 me-1"></i> Admin Operations Hub
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="mt-auto bg-dark text-white-50 py-4">
+    <div class="container">
+      <div class="row g-4 align-items-center">
+        <div class="col-md-6 text-center text-md-start">
+          <h5 class="text-white fw-bold mb-1"><i class="bi bi-tools text-primary me-2"></i>AJIET CampusFix</h5>
+          <p class="small mb-0">A.J. Institute of Engineering and Technology, NH-66, Kottara Chowki, Mangaluru, Karnataka - 575006.</p>
+        </div>
+        <div class="col-md-6 text-center text-md-end small">
+          <span class="d-block">Campus Maintenance Helpline: +91 824 2455011 / 2455012</span>
+          <span class="text-white-50">Estate & Infrastructure Management Office</span>
+        </div>
+      </div>
+      <hr class="border-secondary my-3">
+      <div class="text-center small text-white-50">
+        &copy; 2026 AJIET CampusFix. All rights reserved. Built for excellence in campus administration.
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/js/toast.js"></script>
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // If user is already logged in, update navbar
+      const user = Auth.getUser();
+      if (user && Auth.isAuthenticated()) {
+        const navAuth = document.getElementById('navAuthSection');
+        if (navAuth) {
+          navAuth.innerHTML = `
+            <a class="btn btn-primary-custom px-3 py-1 fw-semibold me-2" href="${user.role === 'admin' ? '/admin' : user.role === 'staff' ? '/staff' : '/student'}">
+              <i class="bi bi-speedometer2 me-1"></i> My Dashboard
+            </a>
+            <button class="btn btn-outline-danger px-3 py-1 fw-semibold action-logout">Sign Out</button>
+          `;
+          navAuth.querySelector('.action-logout').addEventListener('click', () => Auth.logout());
+        }
+      }
+
+      // Quick Track button
+      const heroTrackBtn = document.getElementById('heroTrackBtn');
+      const heroTrackInput = document.getElementById('heroTrackInput');
+      if (heroTrackBtn && heroTrackInput) {
+        heroTrackBtn.addEventListener('click', () => {
+          const val = heroTrackInput.value.trim();
+          if (!val) {
+            showToast('Please enter a complaint code (e.g. AJIET-2026-001)', 'warning');
+            return;
+          }
+          window.location.href = `/track?code=${encodeURIComponent(val)}`;
+        });
+        heroTrackInput.addEventListener('keypress', (e) => {
+          if (e.key === 'Enter') heroTrackBtn.click();
+        });
+      }
+    });
+  </script>
+</body>
+</html>
